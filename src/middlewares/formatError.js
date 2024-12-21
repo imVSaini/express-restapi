@@ -18,7 +18,7 @@ import logger from '../utils/logger.js'
  * It sets default values for unknown errors and hides detailed error stack traces
  * in production environment for non-operational errors.
  */
-export default function formatError(err, req, res, next) {
+export default function formatError(err, req, res, __) {
   let { statusCode, message, errorCode } = err
 
   // Default values for unknown errors

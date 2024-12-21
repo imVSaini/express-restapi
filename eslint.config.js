@@ -20,7 +20,7 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       'prettier/prettier': 'warn',
-      'no-unused-vars': 'warn',
+      'no-unused-vars': ['warn', { 'argsIgnorePattern': '^__' }],
       'no-console': 'error'
     },
   },
