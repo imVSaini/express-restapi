@@ -20,8 +20,14 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       'prettier/prettier': 'warn',
-      'no-unused-vars': ['warn', { 'argsIgnorePattern': '^__' }],
-      'no-console': 'error'
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^__' }],
+      'no-console': 'warn',
+      'no-var': 'error',
+      'no-duplicate-imports': 'error',
+      'prefer-const': 'error',
+      'curly': ['error', 'all'],
+      'consistent-return': 'error',
+      'no-else-return': ['error', { allowElseIf: false }],
     },
   },
   {

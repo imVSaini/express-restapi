@@ -22,9 +22,39 @@ export default function formatError(err, req, res, __) {
   let { statusCode, message, errorCode } = err
 
   // Default values for unknown errors
-  if (!statusCode) statusCode = 500
-  if (!message) message = 'Oops! Something went wrong!'
-  if (!errorCode) errorCode = 'INTERNAL_SERVER_ERROR'
+  if (!statusCode) {
+    statusCode = 500
+  }
+  if (!message) {
+    message = 'Oops! Something went wrong!'
+  }
+
+  // Set default error code based on status code
+  if (!errorCode) {
+    switch (statusCode) {
+      case 400:
+        errorCode = 'BAD_REQUEST'
+        break
+      case 401:
+        errorCode = 'UNAUTHORIZED'
+        break
+      case 403:
+        errorCode = 'FORBIDDEN'
+        break
+      case 404:
+        errorCode = 'NOT_FOUND'
+        break
+      case 500:
+        errorCode = 'INTERNAL_SERVER_ERROR'
+        break
+      case 503:
+        errorCode = 'SERVICE_UNAVAILABLE'
+        break
+      default:
+        errorCode = 'UNEXPECTED_ERROR'
+        break
+    }
+  }
 
   // For production environment, hide detailed error stack traces
   if (process.env.NODE_ENV === 'production' && !err.isOperational) {
