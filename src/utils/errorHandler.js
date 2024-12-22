@@ -5,8 +5,13 @@ class AppError extends Error {
    * @param {number} status - The HTTP status code (default: 500).
    * @param {string} code - The custom error code (default: null).
    */
-  constructor(message, statusCode, errorCode = null) {
+  constructor(
+    message = 'Oops! Something went wrong!',
+    statusCode,
+    errorCode = null
+  ) {
     super(message)
+    this.message = message
     this.errorCode = errorCode
     this.statusCode = statusCode
     this.isOperational = true

@@ -25,9 +25,6 @@ export default function formatError(err, req, res, __) {
   if (!statusCode) {
     statusCode = 500
   }
-  if (!message) {
-    message = 'Oops! Something went wrong!'
-  }
 
   // Set default error code based on status code
   if (!errorCode) {
@@ -80,7 +77,8 @@ export default function formatError(err, req, res, __) {
       ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
       ...(err.details && { details: err.details }),
     },
-    timestamp: new Date().toISOString(),
+    // timestamp: new Date().toISOString(),
+    data: null,
   }
 
   res.status(statusCode).json(responseError)
