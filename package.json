@@ -6,6 +6,13 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node -r dotenv/config src/server.js",
     "server": "cross-env NODE_ENV=development nodemon -r dotenv/config --ignore \"src/**/*.test.js\" src/server.js",
+    "migrate:make": "npx knex migrate:make initial_setup --migrations-directory src/database/migrations",
+    "migrate:latest": "npx knex migrate:latest --knexfile src/config/database.js --env production",
+    "migrate:rollback": "knex migrate:rollback --all --knexfile src/config/database.js --env production",
+    "migrate:up": "npx knex migrate:latest --knexfile src/config/database.js --env development",
+    "migrate:down": "knex migrate:rollback --all --knexfile src/config/database.js --env development",
+    "seed:run": "npx knex seed:run --knexfile src/config/database.js --env production",
+    "seed": "npx knex seed:run --knexfile src/config/database.js --env development",
     "pre:status": "prettier --check \"src/**/*.js\"",
     "pre:format": "prettier --write \"src/**/*.js\"",
     "lint": "eslint \"src/**/*.js\"",
@@ -21,6 +28,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^5.0.1",
+    "knex": "^3.1.0",
     "morgan": "^1.10.0",
     "nodemailer": "^6.9.16",
     "winston": "^3.17.0"

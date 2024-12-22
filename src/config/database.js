@@ -15,16 +15,16 @@ export default {
       ),
     },
     migrations: {
-      directory: path.resolve(rootDir, 'database', 'migrations'),
+      directory: path.resolve(rootDir, 'src', 'database', 'migrations'),
     },
     seeds: {
-      directory: path.resolve(rootDir, 'database', 'seeds'),
+      directory: path.resolve(rootDir, 'src', 'database', 'seeds'),
     },
     useNullAsDefault: true,
   },
 
   production: {
-    client: 'pg',
+    client: 'mysql2',
     connection: {
       database: process.env.DB_NAME,
       host: process.env.DB_HOST,
@@ -36,10 +36,10 @@ export default {
       max: 10,
     },
     migrations: {
-      directory: path.resolve(rootDir, 'database', 'migrations'),
+      directory: path.resolve(rootDir, 'src', 'database', 'migrations'),
     },
     seeds: {
-      directory: path.resolve(rootDir, 'database', 'seeds'),
+      directory: path.resolve(rootDir, 'src', 'database', 'seeds'),
     },
   },
 }
