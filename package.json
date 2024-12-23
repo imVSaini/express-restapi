@@ -11,6 +11,7 @@
     "migrate:rollback": "knex migrate:rollback --all --knexfile src/config/database.js --env production",
     "migrate:up": "npx knex migrate:latest --knexfile src/config/database.js --env development",
     "migrate:down": "knex migrate:rollback --all --knexfile src/config/database.js --env development",
+    "seed:make": "npx knex seed:make recipient --knexfile src/config/database.js",
     "seed:run": "npx knex seed:run --knexfile src/config/database.js --env production",
     "seed": "npx knex seed:run --knexfile src/config/database.js --env development",
     "pre:status": "prettier --check \"src/**/*.js\"",
