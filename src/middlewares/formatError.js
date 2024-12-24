@@ -1,3 +1,4 @@
+import { ErrorCode } from '../utils/errorCode.js'
 import logger from '../utils/logger.js'
 
 /**
@@ -28,29 +29,7 @@ export default function formatError(err, req, res, __) {
 
   // Set default error code based on status code
   if (!errorCode) {
-    switch (statusCode) {
-      case 400:
-        errorCode = 'BAD_REQUEST'
-        break
-      case 401:
-        errorCode = 'UNAUTHORIZED'
-        break
-      case 403:
-        errorCode = 'FORBIDDEN'
-        break
-      case 404:
-        errorCode = 'NOT_FOUND'
-        break
-      case 500:
-        errorCode = 'INTERNAL_SERVER_ERROR'
-        break
-      case 503:
-        errorCode = 'SERVICE_UNAVAILABLE'
-        break
-      default:
-        errorCode = 'UNEXPECTED_ERROR'
-        break
-    }
+    errorCode = ErrorCode.getCode(statusCode)
   }
 
   // For production environment, hide detailed error stack traces
@@ -67,17 +46,21 @@ export default function formatError(err, req, res, __) {
   })
 
   const responseError = {
-    message,
-    success: false,
-    method: req.method,
-    path: req.originalUrl,
-    status: statusCode,
-    extensions: {
-      code: errorCode,
-      ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
-      ...(err.details && { details: err.details }),
-    },
-    // timestamp: new Date().toISOString(),
+    errors: [
+      {
+        message,
+        success: false,
+        method: req.method,
+        path: req.originalUrl,
+        status: statusCode,
+        extensions: {
+          code: errorCode,
+          ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+          ...(err.details && { details: err.details }),
+        },
+        timestamp: new Date().toISOString(),
+      },
+    ],
     data: null,
   }
 
